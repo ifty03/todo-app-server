@@ -43,6 +43,19 @@ const run = async () => {
       const result = await todoCollection.deleteOne(query);
       res.send(result);
     });
+
+    /* update a todo data */
+    app.put("/todo/:id", async (req, res) => {
+      const id = req.params.id;
+      const complete = req.body;
+      console.log(complete);
+      const filter = { _id: ObjectId(id) };
+      const updateDoc = {
+        $set: complete,
+      };
+      const result = await todoCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
   } finally {
     // client.close()
   }
